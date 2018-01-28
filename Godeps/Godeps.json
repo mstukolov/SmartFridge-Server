@@ -4,6 +4,16 @@
 	"GodepVersion": "v79",
 	"Deps": [
 		{
+			"ImportPath": "github.com/eclipse/paho.mqtt.golang",
+			"Comment": "v1.1.0-39-gbab87cd",
+			"Rev": "bab87cde322cf9aec420645d1e9801d0f216f791"
+		},
+		{
+			"ImportPath": "github.com/eclipse/paho.mqtt.golang/packets",
+			"Comment": "v1.1.0-39-gbab87cd",
+			"Rev": "bab87cde322cf9aec420645d1e9801d0f216f791"
+		},
+		{
 			"ImportPath": "github.com/gin-gonic/gin",
 			"Comment": "v1.1.4",
 			"Rev": "e2212d40c62a98b388a5eb48ecbdcf88534688ba"
@@ -66,6 +76,14 @@
 		},
 		{
 			"ImportPath": "golang.org/x/net/context",
+			"Rev": "b4690f45fa1cafc47b1c280c2e75116efe40cc13"
+		},
+		{
+			"ImportPath": "golang.org/x/net/proxy",
+			"Rev": "b4690f45fa1cafc47b1c280c2e75116efe40cc13"
+		},
+		{
+			"ImportPath": "golang.org/x/net/websocket",
 			"Rev": "b4690f45fa1cafc47b1c280c2e75116efe40cc13"
 		},
 		{

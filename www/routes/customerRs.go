@@ -11,14 +11,14 @@ func SetCustomersRoutes(router gin.Engine){
 
 	router.GET("/customers/all", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": psql.GetAll_Customers(),
+			"customers": psql.GetAll_Customers(),
 		})
 	})
 
 	router.GET("/customers/get", func(c *gin.Context) {
 		id, _ := strconv.Atoi(c.Request.URL.Query()["id"][0])
 		c.JSON(200, gin.H{
-			"message": psql.Get_CustomerByID(id),
+			"customers": psql.Get_CustomerByID(id),
 		})
 	})
 	router.POST("/customers/create", func(c *gin.Context) {
@@ -27,7 +27,7 @@ func SetCustomersRoutes(router gin.Engine){
 		customer.Createdat = time.Now()
 		customer.Updatedat = time.Now()
 		c.JSON(200, gin.H{
-			"message": psql.Create_Customer(*customer),
+			"customers": psql.Create_Customer(*customer),
 		})
 	})
 	router.POST("/customers/update", func(c *gin.Context) {
@@ -36,14 +36,14 @@ func SetCustomersRoutes(router gin.Engine){
 		customer.Name = c.Request.URL.Query()["name"][0]
 		customer.Updatedat = time.Now()
 		c.JSON(200, gin.H{
-			"message": psql.Update_Customer(customer),
+			"customers": psql.Update_Customer(customer),
 		})
 	})
 	router.GET("/customers/delete", func(c *gin.Context) {
 		id, _ := strconv.Atoi(c.Request.URL.Query()["id"][0])
 		customer := psql.Get_CustomerByID(id)
 		c.JSON(200, gin.H{
-			"message": psql.DELETE_Customer(customer),
+			"customers": psql.DELETE_Customer(customer),
 		})
 	})
 }

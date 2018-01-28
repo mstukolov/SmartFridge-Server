@@ -24,6 +24,14 @@ func GetAll_Retailstores() []Retailstore {
 	}
 	return all
 }
+func Get_ChainRetailStores(id int) []Retailstore{
+	var all []Retailstore
+	err := connect.GetDB().Model(&all).Where("retailchainid = ?", id).Select()
+	if err != nil {
+		panic(err)
+	}
+	return all
+}
 
 func Get_RetailStore(id int) Retailstore{
 	err := connect.GetDB().Model(&model).Where("id = ?", id).Select()

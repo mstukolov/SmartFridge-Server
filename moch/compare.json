@@ -1,0 +1,14 @@
+{
+  "SlotsQtyBySKU":[
+    {"Sku": "sku-01", "Plan": 10, "Fact": 20, "Status": true},
+    {"Sku": "sku-02", "Plan": 4, "Fact": 15, "Status": false},
+    {"Sku": "sku-03", "Plan": 4, "Fact": 15, "Status": false}
+  ],
+  "AbsentSKU":[
+    {"Sku": "sku-04", "Plan": 10, "Fact": 0, "Status": false},
+    {"Sku": "sku-05", "Plan": 4, "Fact": 0, "Status": false},
+    {"Sku": "sku-06", "Plan": 4, "Fact": 0, "Status": false}
+  ],
+  "EmptyCells": 6
+
+}
