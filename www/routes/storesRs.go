@@ -28,7 +28,7 @@ func SetRetailStoresRoutes(router gin.Engine){
 	router.POST("/retailstores/create", func(c *gin.Context) {
 		model := new(psql.Retailstore)
 		model.Name = c.Request.URL.Query()["name"][0]
-		model.Retailchainid, _ = strconv.Atoi(c.Request.URL.Query()["chainid"][0])
+		model.RetailchainId, _ = strconv.Atoi(c.Request.URL.Query()["chainid"][0])
 		model.Createdat = time.Now()
 		model.Updatedat = time.Now()
 		c.JSON(200, gin.H{

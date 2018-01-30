@@ -7,9 +7,10 @@ import (
 )
 
 type Retailstore struct {
-	Id        int64
+	Id        int
 	Name      string
-	Retailchainid int
+	RetailchainId int
+	Retailchain *Retailchain
 	Createdat time.Time
 	Updatedat time.Time
 }

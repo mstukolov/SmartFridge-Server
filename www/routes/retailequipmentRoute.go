@@ -9,7 +9,12 @@ import (
 func SetRetailequipmentsRoutes(router gin.Engine){
 	router.GET("/retailequipment/all", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"retailequipment": psql.GetAll_Retailequipments(),
+			"retailequipment": psql.All_Retailequipmentview(),
+		})
+	})
+	router.GET("/retailequipment/gps/all", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"retailequipmentgps": psql.Get_RetailequipmentGPS(),
 		})
 	})
 

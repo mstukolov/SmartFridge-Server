@@ -1,0 +1,10 @@
+{
+  "retailequipmentgps":[
+    {"Id":4,"Serialnumber":"45647","Lat":55.735444,"Lng":37.612497},
+    {"Id":5,"Serialnumber":"766686868","Lat":55.735444,"Lng":37.612497},
+    {"Id":3,"Serialnumber":"45768457","Lat":55.735444,"Lng":37.612497},
+    {"Id":6,"Serialnumber":"4364758776","Lat":55.740152,"Lng":37.605409},
+    {"Id":8,"Serialnumber":"1378686886","Lat":55.740152,"Lng":37.605409},
+    {"Id":7,"Serialnumber":"87979879","Lat":55.740152,"Lng":37.605409}
+  ]
+}

@@ -5,22 +5,12 @@ import (
 	"mstukolov/fridgeserver/www/routes"
 	"os"
 	"github.com/gin-gonic/gin"
-	"mstukolov/fridgeserver/ibmiotf"
+	//"mstukolov/fridgeserver/ibmiotf"
 )
 
 func main() {
 	router := gin.Default()
-	go ibmiotf.RunSubscriber()
-
-	/*config := cors.Config{
-		Origins:        "*",
-		Methods:        "GET, PUT, POST, DELETE",
-		RequestHeaders: "Origin, Authorization, Content-Type",
-		ExposedHeaders: "",
-		MaxAge: 1 * time.Minute,
-		Credentials: true,
-		ValidateHeaders: false,
-	}*/
+	//go ibmiotf.RunSubscriber()
 
 	router.Use(CORSMiddleware())
 	routes.SetCustomersRoutes(*router)
