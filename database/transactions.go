@@ -10,17 +10,19 @@ type Transaction interface{
 }
 type Requipmentlasttrans struct {
 	Id int64
-	Retailequipmentid string
+	Retailequipmentid int
 	Sentsortypeid int
-	Sensorvalue int
+	Sensorvalue float64
+	Fullness float64
 	Createdat time.Time
 	Updatedat time.Time
 }
 type Requipmenttrans struct {
 	Id int64
-	Retailequipmentid string
+	Retailequipmentid int
 	Sentsortypeid int
-	Sensorvalue int
+	Sensorvalue float64
+	Fullness float64
 	Createdat time.Time
 	Updatedat time.Time
 }

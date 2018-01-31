@@ -30,3 +30,11 @@ func Get_UserByID(id int) Emploee{
 	}
 	return model
 }
+func UserAuth(login string, password string) Emploee{
+	var model Emploee
+	err := connect.GetDB().Model(&model).Where("id = ?", login).Select()
+	if err != nil {
+		panic(err)
+	}
+	return model
+}

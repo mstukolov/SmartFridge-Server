@@ -11,7 +11,6 @@ import (
 func main() {
 	router := gin.Default()
 	//go ibmiotf.RunSubscriber()
-
 	router.Use(CORSMiddleware())
 	routes.SetCustomersRoutes(*router)
 	routes.SetRetailStoresRoutes(*router)

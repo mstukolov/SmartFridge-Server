@@ -47,8 +47,18 @@ func onMessageReceived(client mqtt.Client, message mqtt.Message) {
 	if err := json.Unmarshal(message.Payload(), &current); err != nil {
 		panic(err)
 	}
-	sensorvalue, _ := strconv.Atoi(current.D.P1)
-	transaction := psql.Requipmentlasttrans{Retailequipmentid: current.D.Id, Sentsortypeid: 1, Sensorvalue: sensorvalue}
+
+	microcontroller := psql.Get_Microcontroller(current.D.Id)
+	sensorValue, _ := strconv.ParseFloat(current.D.P1, 64)
+	currentValue := sensorValue/microcontroller.Factor
+	EquipMaxvalue := psql.Get_RetailequipmentById(microcontroller.Requipmentid).Maxvalue
+	Fullness := currentValue/EquipMaxvalue
+	transaction := psql.Requipmentlasttrans{
+		Retailequipmentid: microcontroller.Requipmentid,
+		Sentsortypeid: 1,
+		Sensorvalue: currentValue,
+		Fullness: Fullness,
+		}
 	transaction.Commit()
 	psql.Requipmenttrans(transaction).Commit()
 }

@@ -19,7 +19,7 @@ type Retailequipment struct {
 }
 type Requipmentview struct {
 	Requipid        int
-	Requipserialnumber string `json:serialnumber`
+	Requipserialnumber string
 	Requiplastvalue float64
 	Requipmaxvalue float64
 	Requipfilling float64
@@ -27,21 +27,34 @@ type Requipmentview struct {
 	Storename string
 	Rchainid int
 	Rchainname string
+	Sensorvalue float64 `json:"Sensorvalue"`
+	Createdat time.Time `json:"Measuredate"`
+}
+type Microcontroller struct {
+	Id int
+	Deviceid string
+	Requipmentid int
+	Emptyweight float64
+	Normweight float64
+	Factor float64
 }
 
-
-type Retailequipmentdetails struct {
-	Id int64
-	Serialnumber string
-	Filling float64
-	Lastvalue float64
-	Maxvalue float64
-	Store string
-	Chain string
-	Address string
-	Lat float64
-	Lng float64
+type Requipmentdetailview struct {
+	Requipid int `json:"equipid"`
+	Requipserialnumber string `json:"serialnumber"`
+	Requipmaxvalue float64 `json:"equipmaxvalue"`
+	Requipfullness float64 `json:"fullness"`
+	Storeid int	`json:"storeid"`
+	Storename string `json:"storename"`
+	Rchainid int `json:"chainid"`
+	Rchainname string	`json:"chainname"`
+	Sensorvalue float64 `json:"sensorvalue"`
+	Createdat time.Time `json:"measuredate"`
+	Address string	`json:"address"`
+	Lat float64	`json:"lat"`
+	Lng float64	`json:"lng"`
 }
+
 type Retailequipmentgps struct {
 	Id int64
 	Serialnumber string
@@ -58,9 +71,18 @@ type Requipmentlasttran struct {
 }
 
 var equipment Retailequipment
-var requipdetails Retailequipmentdetails
+var requipdetails Requipmentdetailview
 var requipgps Retailequipmentgps
 var requiplasttrans Requipmentlasttran
+
+func Get_Microcontroller(deviceid string) Microcontroller{
+	var device Microcontroller
+	err := connect.GetDB().Model(&device).Where("deviceid = ?", deviceid).Select()
+	if err != nil {
+		panic(err)
+	}
+	return device
+}
 
 func All_Retailequipmentview() []Requipmentview{
 	var all[] Requipmentview
@@ -97,8 +119,8 @@ func Get_RetailequipmentGPS() []Retailequipmentgps{
 	}
 	return all
 }
-func Get_RetailequipmentDetails(id int) Retailequipmentdetails{
-	err := connect.GetDB().Model(&requipdetails).Where("id = ?", id).Select()
+func Get_RetailequipmentDetails(id int) Requipmentdetailview{
+	err := connect.GetDB().Model(&requipdetails).Where("requipid = ?", id).Select()
 	if err != nil {
 		panic(err)
 	}
