@@ -5,12 +5,12 @@ import (
 	"mstukolov/fridgeserver/www/routes"
 	"os"
 	"github.com/gin-gonic/gin"
-	//"mstukolov/fridgeserver/ibmiotf"
+	"mstukolov/fridgeserver/ibmiotf"
 )
 
 func main() {
 	router := gin.Default()
-	//go ibmiotf.RunSubscriber()
+	go ibmiotf.RunSubscriber()
 	router.Use(CORSMiddleware())
 	routes.SetCustomersRoutes(*router)
 	routes.SetRetailStoresRoutes(*router)

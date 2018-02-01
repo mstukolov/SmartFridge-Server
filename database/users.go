@@ -6,11 +6,15 @@ import (
 )
 
 type Emploee struct {
-	Id	int64
-	Login	string
-	Password string
-	Createdat time.Time
-	Updatedat time.Time
+	Id	int64 `json:"userid"`
+	Login	string `json:"login"`
+	Password string `json:"password"`
+	Surname string	`json:"surname"`
+	Name string	`json:"name"`
+	Hash string	`json:"hash"`
+	Createdat time.Time	`json:"createdat"`
+	Updatedat time.Time	`json:"updatedat"`
+	Auth bool	`json:"auth"`
 }
 
 func GetAll_Users() []Emploee {
@@ -31,10 +35,14 @@ func Get_UserByID(id int) Emploee{
 	return model
 }
 func UserAuth(login string, password string) Emploee{
-	var model Emploee
-	err := connect.GetDB().Model(&model).Where("id = ?", login).Select()
+	model := Emploee{Auth:true}
+	err := connect.GetDB().Model(&model).
+		Where("login = ?", login).
+			Where("password = ?", password).
+				Select()
 	if err != nil {
-		panic(err)
+		model.Auth = false
+		return model
 	}
 	return model
 }

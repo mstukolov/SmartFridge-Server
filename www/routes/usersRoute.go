@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"mstukolov/fridgeserver/database"
 	"strconv"
+	"fmt"
 )
 type Login struct {
 	Username string `json:"username"`
@@ -24,12 +25,10 @@ router.GET("/users/get", func(c *gin.Context) {
 		})
 	})
 
-router.GET("/users/auth", func(c *gin.Context) {
-		/*var login Login
-		c.BindJSON(&login)
-		data:= c.Request.Body*/
-		login := c.Request.URL.Query()["login"][0]
-		password := c.Request.URL.Query()["password"][0]
+router.POST("/users/auth", func(c *gin.Context) {
+		login := c.PostForm("login")
+		password := c.PostForm("password")
+		fmt.Printf("login: %s", login)
 		c.JSON(200, gin.H{
 			"users": psql.UserAuth(login, password),
 		})

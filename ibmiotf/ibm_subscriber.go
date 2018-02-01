@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"os"
 	"time"
+	"math"
 )
 type MqttMessage struct {
 	D struct {
@@ -20,7 +21,7 @@ var current MqttMessage
 func RunSubscriber(){
 	println("IBM-IOT Subscriber status: running")
 	opts := mqtt.NewClientOptions().AddBroker("tcp://kwxqcy.messaging.internetofthings.ibmcloud.com:1883")
-	opts.ClientID = "a:kwxqcy:appSub01"
+	opts.ClientID = "a:kwxqcy:appSub0222"
 	opts.SetUsername("a-kwxqcy-mcdr98tbie")
 	opts.SetPassword("YulBG4VfJSU-FTXov*")
 	topic := "iot-2/type/smfr/id/smfrtest1/evt/+/fmt/json"
@@ -49,16 +50,27 @@ func onMessageReceived(client mqtt.Client, message mqtt.Message) {
 	}
 
 	microcontroller := psql.Get_Microcontroller(current.D.Id)
-	sensorValue, _ := strconv.ParseFloat(current.D.P1, 64)
-	currentValue := sensorValue/microcontroller.Factor
-	EquipMaxvalue := psql.Get_RetailequipmentById(microcontroller.Requipmentid).Maxvalue
-	Fullness := currentValue/EquipMaxvalue
+	currentValue, _ := strconv.ParseFloat(current.D.P1, 64)
+	emptyWeight :=	microcontroller.Emptyweight
+	fullWeight :=	microcontroller.Fullweight
+
+	Fullness := (emptyWeight - currentValue)/(fullWeight - emptyWeight)
 	transaction := psql.Requipmentlasttrans{
 		Retailequipmentid: microcontroller.Requipmentid,
 		Sentsortypeid: 1,
 		Sensorvalue: currentValue,
-		Fullness: Fullness,
+		Fullness: Round2(Fullness, 3),
 		}
 	transaction.Commit()
 	psql.Requipmenttrans(transaction).Commit()
+}
+func Round(f float64) float64 {
+	return math.Floor(f + .005)
+}
+func Round2(v float64, decimals int) float64 {
+	var pow float64 = 1
+	for i:=0; i<decimals; i++ {
+		pow *= 10
+	}
+	return float64(int((v * pow) + 0.5)) / pow
 }

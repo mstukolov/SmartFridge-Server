@@ -35,7 +35,7 @@ type Microcontroller struct {
 	Deviceid string
 	Requipmentid int
 	Emptyweight float64
-	Normweight float64
+	Fullweight float64
 	Factor float64
 }
 
