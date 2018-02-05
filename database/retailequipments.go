@@ -20,9 +20,7 @@ type Retailequipment struct {
 type Requipmentview struct {
 	Requipid        int
 	Requipserialnumber string
-	Requiplastvalue float64
-	Requipmaxvalue float64
-	Requipfilling float64
+	Requipfullness float64
 	Storeid int
 	Storename string
 	Rchainid int
