@@ -1,17 +1,15 @@
 package main
 
 import (
-	"mstukolov/fridgeserver/database"
-	"mstukolov/fridgeserver/www/routes"
-	"os"
 	"github.com/gin-gonic/gin"
 	"mstukolov/fridgeserver/ibmiotf"
-	"mstukolov/fridgeserver/ibmiotf/bot"
+	"mstukolov/fridgeserver/www/routes"
+	"os"
 )
 
 func main() {
-	router := gin.Default()
 
+	router := gin.Default()
 	go ibmiotf.RunSubscriber()
 
 	router.Use(CORSMiddleware())
@@ -22,11 +20,11 @@ func main() {
 	routes.SetUsersRoutes(*router)
 	routes.SetTransactionRoute(*router)
 
-	router.GET("/chains/all", func(c *gin.Context) {
+	/*router.GET("/chains/all", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": psql.GetAll_Retailstores(),
 		})
-	})
+	})*/
 
 	port := os.Getenv("PORT")
 	if port == "" {
