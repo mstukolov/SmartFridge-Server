@@ -75,6 +75,34 @@
 			"Rev": "dda3de49cbfcec471bd7a70e6cc01fcc3ff90109"
 		},
 		{
+			"ImportPath": "github.com/robertkrimen/otto",
+			"Rev": "3b44b4dcb6c00477273595c312908e2412d07da6"
+		},
+		{
+			"ImportPath": "github.com/robertkrimen/otto/ast",
+			"Rev": "3b44b4dcb6c00477273595c312908e2412d07da6"
+		},
+		{
+			"ImportPath": "github.com/robertkrimen/otto/dbg",
+			"Rev": "3b44b4dcb6c00477273595c312908e2412d07da6"
+		},
+		{
+			"ImportPath": "github.com/robertkrimen/otto/file",
+			"Rev": "3b44b4dcb6c00477273595c312908e2412d07da6"
+		},
+		{
+			"ImportPath": "github.com/robertkrimen/otto/parser",
+			"Rev": "3b44b4dcb6c00477273595c312908e2412d07da6"
+		},
+		{
+			"ImportPath": "github.com/robertkrimen/otto/registry",
+			"Rev": "3b44b4dcb6c00477273595c312908e2412d07da6"
+		},
+		{
+			"ImportPath": "github.com/robertkrimen/otto/token",
+			"Rev": "3b44b4dcb6c00477273595c312908e2412d07da6"
+		},
+		{
 			"ImportPath": "golang.org/x/net/context",
 			"Rev": "b4690f45fa1cafc47b1c280c2e75116efe40cc13"
 		},
@@ -94,6 +122,16 @@
 			"ImportPath": "gopkg.in/go-playground/validator.v8",
 			"Comment": "v8.18.1",
 			"Rev": "5f57d2222ad794d0dffb07e664ea05e2ee07d60c"
+		},
+		{
+			"ImportPath": "gopkg.in/sourcemap.v1",
+			"Comment": "v1.0.5",
+			"Rev": "6e83acea0053641eff084973fee085f0c193c61a"
+		},
+		{
+			"ImportPath": "gopkg.in/sourcemap.v1/base64vlq",
+			"Comment": "v1.0.5",
+			"Rev": "6e83acea0053641eff084973fee085f0c193c61a"
 		},
 		{
 			"ImportPath": "gopkg.in/yaml.v2",

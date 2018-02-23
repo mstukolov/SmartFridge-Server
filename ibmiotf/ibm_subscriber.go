@@ -21,7 +21,7 @@ var current MqttMessage
 func RunSubscriber(){
 	println("IBM-IOT Subscriber status: running")
 	opts := mqtt.NewClientOptions().AddBroker("tcp://kwxqcy.messaging.internetofthings.ibmcloud.com:1883")
-	opts.ClientID = "a:kwxqcy:appSub03322"
+	opts.ClientID = "a:kwxqcy:appSub0655"
 	opts.SetUsername("a-kwxqcy-mcdr98tbie")
 	opts.SetPassword("YulBG4VfJSU-FTXov*")
 	topic := "iot-2/type/smfr/id/smfrtest1/evt/+/fmt/json"
@@ -51,10 +51,21 @@ func onMessageReceived(client mqtt.Client, message mqtt.Message) {
 
 	microcontroller := psql.Get_Microcontroller(current.D.Id)
 	currentValue, _ := strconv.ParseFloat(current.D.P1, 64)
-	emptyWeight :=	microcontroller.Emptyweight
-	fullWeight :=	microcontroller.Fullweight
+	//emptyWeight :=	microcontroller.Emptyweight
+	//fullWeight :=	microcontroller.Fullweight
 
-	Fullness := (emptyWeight - currentValue)/(fullWeight - emptyWeight)
+	//maks 23/02/2018 Если для контроллера включено преобразование значения по формуле
+	/*if microcontroller.Transformation == true {
+		transCurrentValue := Transform(microcontroller.Formula, currentValue)
+		Fullness, _ := transCurrentValue.ToFloat()
+		fmt.Println("Current Fullness:", Fullness)
+	} else {
+		sFullness := (emptyWeight - currentValue)/(fullWeight - emptyWeight)
+		fmt.Println(sFullness)
+	}*/
+
+	Fullness := Transform(microcontroller.Formula, currentValue)
+
 	transaction := psql.Requipmentlasttrans{
 		Retailequipmentid: microcontroller.Requipmentid,
 		Sentsortypeid: 1,

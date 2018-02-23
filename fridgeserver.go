@@ -19,6 +19,7 @@ func main() {
 	routes.SetRetailequipmentsRoutes(*router)
 	routes.SetUsersRoutes(*router)
 	routes.SetTransactionRoute(*router)
+	routes.CheckLicenseRoute(*router)
 
 	/*router.GET("/chains/all", func(c *gin.Context) {
 		c.JSON(200, gin.H{

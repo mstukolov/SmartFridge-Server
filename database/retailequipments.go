@@ -35,6 +35,8 @@ type Microcontroller struct {
 	Emptyweight float64
 	Fullweight float64
 	Factor float64
+	Formula string
+	Transformation bool
 }
 
 type Requipmentdetailview struct {
