@@ -5,7 +5,7 @@ import (
 	"time"
 	"fmt"
 )
-var validity_date = time.Date(2018, time.March, 15, 23, 0, 0, 0, time.UTC)
+var validity_date = time.Date(2018, time.April, 15, 23, 0, 0, 0, time.UTC)
 
 func checkLicense() bool{
 	//validity_date = time.Date(2018, time.March, 5, 23, 0, 0, 0, time.UTC)

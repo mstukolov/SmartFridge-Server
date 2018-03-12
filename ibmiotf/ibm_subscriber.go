@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"os"
 	"time"
+	"math/rand"
 	"math"
 )
 type MqttMessage struct {
@@ -21,7 +22,9 @@ var current MqttMessage
 func RunSubscriber(){
 	println("IBM-IOT Subscriber status: running")
 	opts := mqtt.NewClientOptions().AddBroker("tcp://kwxqcy.messaging.internetofthings.ibmcloud.com:1883")
-	opts.ClientID = "a:kwxqcy:appSub0655132"
+
+	//12.03.2018 [maks] Dynamic generation ibm bluemix api-key
+	opts.ClientID = "a:kwxqcy:" + RandStringRunes(15)
 	opts.SetUsername("a-kwxqcy-mcdr98tbie")
 	opts.SetPassword("YulBG4VfJSU-FTXov*")
 	topic := "iot-2/type/smfr/id/smfrtest1/evt/+/fmt/json"
@@ -84,4 +87,13 @@ func Round2(v float64, decimals int) float64 {
 		pow *= 10
 	}
 	return float64(int((v * pow) + 0.5)) / pow
+}
+
+func RandStringRunes(n int) string {
+	var letterRunes = []rune("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letterRunes[rand.Intn(len(letterRunes))]
+	}
+	return string(b)
 }
