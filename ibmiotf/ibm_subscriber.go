@@ -21,7 +21,7 @@ var current MqttMessage
 func RunSubscriber(){
 	println("IBM-IOT Subscriber status: running")
 	opts := mqtt.NewClientOptions().AddBroker("tcp://kwxqcy.messaging.internetofthings.ibmcloud.com:1883")
-	opts.ClientID = "a:kwxqcy:appSub0655"
+	opts.ClientID = "a:kwxqcy:appSub0655132"
 	opts.SetUsername("a-kwxqcy-mcdr98tbie")
 	opts.SetPassword("YulBG4VfJSU-FTXov*")
 	topic := "iot-2/type/smfr/id/smfrtest1/evt/+/fmt/json"

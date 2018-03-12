@@ -1,8 +1,10 @@
+//Copyright Maxim Stukolov(maxim.stukolov@gmail.com)
 package psql
 
 import (
 	"time"
 	"mstukolov/fridgeserver/database/connect"
+	"strconv"
 )
 
 type Retailequipment struct {
@@ -38,7 +40,6 @@ type Microcontroller struct {
 	Formula string
 	Transformation bool
 }
-
 type Requipmentdetailview struct {
 	Requipid int `json:"equipid"`
 	Requipserialnumber string `json:"serialnumber"`
@@ -54,7 +55,6 @@ type Requipmentdetailview struct {
 	Lat float64	`json:"lat"`
 	Lng float64	`json:"lng"`
 }
-
 type Retailequipmentgps struct {
 	Id int64
 	Serialnumber string
@@ -68,6 +68,15 @@ type Requipmentlasttran struct {
 	Sensorvalue float64
 	Createdat time.Time
 	Updatedat time.Time
+}
+type Requipmentfullnessreport struct {
+	Equipmentid int64
+	Transqty int
+	Average float64
+	Year int
+	Month int
+	Day int
+	Hour int
 }
 
 var equipment Retailequipment
@@ -83,7 +92,6 @@ func Get_Microcontroller(deviceid string) Microcontroller{
 	}
 	return device
 }
-
 func All_Retailequipmentview() []Requipmentview{
 	var all[] Requipmentview
 	err := connect.GetDB().Model(&all).Select()
@@ -102,7 +110,6 @@ func GetAll_Retailequipments() []Retailequipment {
 	}
 	return all
 }
-
 func Get_RetailequipmentById(id int) Retailequipment{
 	err := connect.GetDB().Model(&equipment).Where("id = ?", id).Select()
 	if err != nil {
@@ -110,7 +117,6 @@ func Get_RetailequipmentById(id int) Retailequipment{
 	}
 	return equipment
 }
-
 func Get_RetailequipmentGPS() []Retailequipmentgps{
 	var all []Retailequipmentgps
 	err := connect.GetDB().Model(&all).Select()
@@ -126,13 +132,12 @@ func Get_RetailequipmentDetails(id int) Requipmentdetailview{
 	}
 	return requipdetails
 }
-func Get_RetailequipmenLastTransAll() []Requipmentlasttran{
-	var all []Requipmentlasttran
-	err := connect.GetDB().Model(&all).Select()
+func Get_RetailequipmenLastTransAll() (data []Requipmentlasttran){
+	err := connect.GetDB().Model(&data).Select()
 	if err != nil {
 		panic(err)
 	}
-	return all
+	return
 }
 func Get_RetailequipmenLastById(id int) Requipmentlasttran{
 	err := connect.GetDB().Model(&requiplasttrans).Where("id = ?", id).Select()
@@ -141,3 +146,35 @@ func Get_RetailequipmenLastById(id int) Requipmentlasttran{
 	}
 	return requiplasttrans
 }
+//11.03.2018 [MAKS] Add equipment fullness report for selected period
+func RetailEquipmentFullnessReport(equipmentId int, from string, to string) (data []Requipmentfullnessreport){
+	fromYear := DateExtract(from, "yyyy")
+	fromMonth := DateExtract(from, "mm")
+	fromDay := DateExtract(from, "dd")
+
+	toYear := DateExtract(to, "yyyy")
+	toMonth := DateExtract(to, "mm")
+	toDay := DateExtract(to, "dd")
+	err := connect.GetDB().
+					Model(&data).
+					Where("equipmentid = ?", equipmentId).
+					Where("year >= ? AND year <= ?", fromYear, toYear).
+					Where("month >= ? AND month <= ?", fromMonth, toMonth).
+					Where("day >= ? AND day <= ?", fromDay, toDay).
+					Select()
+	if err != nil {
+		panic(err)
+	}
+	return
+}
+
+func DateExtract(date string, part string) (result int){
+	runes := []rune(date)
+	switch part {
+		case "yyyy": result, _ := strconv.Atoi(string(runes[6:10])); return result
+		case "mm": result, _ := strconv.Atoi(string(runes[3:5])); return result
+		case "dd": result, _ := strconv.Atoi(string(runes[0:2])); return result
+	}
+	return
+}
+

@@ -1,3 +1,4 @@
+//Copyright Maxim Stukolov(maxim.stukolov@gmail.com)
 package routes
 
 import (
@@ -60,6 +61,19 @@ func SetRetailequipmentsRoutes(router gin.Engine){
 			id, _ := strconv.Atoi(c.Request.URL.Query()["id"][0])
 			c.JSON(200, gin.H{
 				"equipmentlasttrans": psql.Get_RetailequipmenLastById(id),
+			})
+		} else {
+			licenseFailRoute(c)
+		}
+	})
+	//11.03.2018 [MAKS] Add equipment fullness report
+	router.POST("/retailequipment/reports/fullness", func(c *gin.Context) {
+		if checkLicense() == true {
+			id, _ := strconv.Atoi(c.Request.URL.Query()["id"][0])
+			fromDate := c.Request.URL.Query()["from"][0]
+			toDate   := c.Request.URL.Query()["to"][0]
+			c.JSON(200, gin.H{
+				"retailequipment": psql.RetailEquipmentFullnessReport(id, fromDate, toDate),
 			})
 		} else {
 			licenseFailRoute(c)
